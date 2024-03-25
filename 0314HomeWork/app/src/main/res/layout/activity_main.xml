@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="49dp"
-        android:layout_height="133dp"
+        android:layout_width="170dp"
+        android:layout_height="130dp"
         android:layout_marginStart="80dp"
         android:text="@string/initial_value"
         android:textSize="96sp"
