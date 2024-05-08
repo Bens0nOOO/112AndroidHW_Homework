@@ -1,5 +1,5 @@
 package com.example.MidWork_0425;
-
+//A111221043
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -8,6 +8,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +17,8 @@ import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, NumberPicker.OnValueChangeListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener  {
+
     enum gender { Boy, girl }
     enum identity { Adult, Child, Student }
     private String gender = "男性";
@@ -25,8 +28,27 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     private String resultString = null;
     RadioGroup RdGroup, RdGroup_2;
     EditText NumSheets;
+    TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            Number = Integer.parseInt(edtNum.getText().toString());
+            money = returnMoney(identity) * Number;
+            resultString = String.format("%s\n%s\n%d 張\n%d 元", gender, identity, Number, money);
+            result.setText(resultString);
+        }
+    };
     TextView result;
-    NumberPicker numberPicker;
+    EditText edtNum;
     Button btnPurchase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +62,36 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         });
         RdGroup = (RadioGroup) findViewById(R.id.RdGroup);
         RdGroup_2 = (RadioGroup) findViewById(R.id.RdGroup_2);
-        numberPicker = (NumberPicker) findViewById(R.id.numpick);
+        edtNum = (EditText) findViewById(R.id.edtNum);
         result = (TextView) findViewById(R.id.result);
         btnPurchase = (Button) findViewById(R.id.btnPurchase);
 
         RdGroup.check(R.id.genderBoy);
         RdGroup_2.check(R.id.rdAdult);
-        numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(100);
-        numberPicker.setValue(1);
-        numberPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+
+        edtNum.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Number = Integer.parseInt(edtNum.getText().toString());
+                money = returnMoney(identity) * Number;
+                resultString = String.format("%s\n%s\n%d 張\n%d 元", gender, identity, Number, money);
+                result.setText(resultString);
+            }
+        });
 
         RdGroup.setOnCheckedChangeListener(this);
         RdGroup_2.setOnCheckedChangeListener(this);
-        numberPicker.setOnValueChangedListener(this);
+//        EditText.addTextChangedListener(this);
         btnPurchase.setOnClickListener(this);
         money = returnMoney(identity) * Number;
         resultString = String.format("%s\n%s\n%d 張\n%d 元", gender, identity, Number, money);
@@ -81,13 +119,6 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
                 money = returnMoney(identity) * Number;
                 break;
         }
-        resultString = String.format("%s\n%s\n%d 張\n%d 元", gender, identity, Number, money);
-        result.setText(resultString);
-    }
-    @Override
-    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-        Number =  newVal;
-        money = returnMoney(identity) * Number;
         resultString = String.format("%s\n%s\n%d 張\n%d 元", gender, identity, Number, money);
         result.setText(resultString);
     }
