@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">0516_HW</string>
+    <string-array name="strMFood">
+        <item >牛肉漢堡</item>
+        <item >豬肉漢堡</item>
+        <item >炸機漢堡</item>
+        <item >炸魚漢堡</item>
+    </string-array>
+
+    <string-array name="strFood2">
+        <item >炸薯條</item>
+        <item >炸雞塊</item>
+        <item >炸雞翅</item>
+        <item >冰淇淋</item>
+    </string-array>
+
+    <string-array name="strDrink">
+        <item >可樂</item>
+        <item >檸檬紅茶</item>
+        <item >咖啡</item>
+        <item >玉米濃湯</item>
+    </string-array>
+</resources>
